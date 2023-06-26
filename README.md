@@ -1,14 +1,10 @@
-# Our new open source project
+# Project Operator Helm Chart
 
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP/project-operator-helm)](https://api.reuse.software/info/github.com/SAP/project-operator-helm)
 
 ## About this project
 
-*Insert a short description of your project here...*
-
-## Requirements and Setup
-
-*Insert a short description what is required to get your project running...*
+Helm chart for [https://github.com/sap/project-operator](https://github.com/sap/project-operator).
 
 ## Support, Feedback, Contributing
 
