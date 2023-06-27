@@ -22,7 +22,7 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-      
+
     - name: Validate chart version
       run: |
         chart_version=$(yq .version $CHART_DIR/Chart.yaml)
@@ -181,6 +181,6 @@ jobs:
         Update chart (triggered by operator helm release $new_version)
         Repository: ${{ github.repository }}
         Release: ${{ github.event.release.tag_name }}
-        Commit: ${{ github.sha }}"
+        Commit: ${{ github.sha }}
         END
         git push
