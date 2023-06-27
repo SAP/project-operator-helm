@@ -20,6 +20,9 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      
     - name: Validate chart version
       run: |
         chart_version=$(yq .version $CHART_DIR/Chart.yaml)
