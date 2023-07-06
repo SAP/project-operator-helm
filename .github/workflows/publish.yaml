@@ -204,14 +204,14 @@ jobs:
         if [ "$version_bump" != major ] && [ "$version_bump" != minor ]; then
           version_bump=patch
         fi
-        echo "Performing component operator version bump: $version_bump."
+        echo "Performing component operator version bump: $version_bump ..."
 
         echo "Updating chart ($cop_chart_base_directory/$chart_name) ..."
         rm -rf $cop_chart_base_directory/$chart_name
         cp -r ../$CHART_DIRECTORY $cop_chart_base_directory/$chart_name
 
         if [ -z "$(git status --porcelain)" ]; then
-          echo "Nothing has changed; skipping update."
+          echo "Nothing has changed; skipping update ..."
           exit 0
         fi
 
