@@ -3,4 +3,4 @@ name: project-operator
 description: A Helm chart for https://github.com/sap/project-operator
 type: application
 version: 0.1.13
-appVersion: v0.1.9
+appVersion: v0.1.10
