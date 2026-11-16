@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   project-operator:
   - apiVersion: v2
+    appVersion: v0.1.96
+    created: "2026-11-16T07:36:10.937983819Z"
+    description: A Helm chart for https://github.com/sap/project-operator
+    digest: 00338033811c0444c9f9eec96c8374acc3745d7e345a52d8ff388f92042eade8
+    name: project-operator
+    type: application
+    urls:
+    - https://github.com/SAP/project-operator-helm/releases/download/0.1.100/project-operator-0.1.100.tgz
+    version: 0.1.100
+  - apiVersion: v2
     appVersion: v0.1.95
     created: "2026-11-02T07:29:59.662680384Z"
     description: A Helm chart for https://github.com/sap/project-operator
@@ -1001,4 +1011,4 @@ entries:
     urls:
     - https://github.com/SAP/project-operator-helm/releases/download/0.1.0/project-operator-0.1.0.tgz
     version: 0.1.0
-generated: "2026-11-02T07:29:59.662069888Z"
+generated: "2026-11-16T07:36:10.937316653Z"
