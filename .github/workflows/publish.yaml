@@ -150,7 +150,7 @@ jobs:
         chart_name=$(yq .name $CHART_DIRECTORY/Chart.yaml)
         helm package --version ${{ github.event.release.tag_name }} $CHART_DIRECTORY
         file=$chart_name-${{ github.event.release.tag_name }}.tgz
-        repository=$REGISTRY/${{ github.repository }}/charts
+        repository=$REGISTRY/${{ github.repository }}
         digest=$(helm push $file oci://${repository,,} 2>&1 | awk '/Digest:/ {print $2}')
         echo "repository=$repository/$chart_name" >> $GITHUB_OUTPUT
         echo "digest=$digest" >> $GITHUB_OUTPUT
