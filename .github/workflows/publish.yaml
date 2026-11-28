@@ -125,6 +125,9 @@ jobs:
     permissions:
       contents: read
       packages: write
+      attestations: write
+      artifact-metadata: write
+      id-token: write
 
     steps:
     - name: Checkout repository
@@ -134,20 +137,30 @@ jobs:
       with:
        version: ${{ env.HELM_VERSION }}
 
-    - name: Create package
-      run: |
-        helm package --version ${{ github.event.release.tag_name }} $CHART_DIRECTORY
+    - name: Log in to the registry
+      uses: docker/login-action@v4
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ github.token }}
 
-    - name: Login to the OCI registry
-      run: |
-        helm --registry-config $RUNNER_TEMP/helm-config.json registry login $REGISTRY -u ${{ github.actor }} --password-stdin <<< ${{ github.token }}
-
-    - name: Upload package
+    - name: Build and push artifact
+      id: build-and-push
       run: |
         chart_name=$(yq .name $CHART_DIRECTORY/Chart.yaml)
+        helm package --version ${{ github.event.release.tag_name }} $CHART_DIRECTORY
         file=$chart_name-${{ github.event.release.tag_name }}.tgz
-        repository=$REGISTRY/${{ github.repository }}
-        helm --registry-config $RUNNER_TEMP/helm-config.json push $file oci://${repository,,}
+        repository=$REGISTRY/${{ github.repository }}/charts
+        digest=$(helm push $file oci://${repository,,} 2>&1 | awk '/Digest:/ {print $2}')
+        echo "repository=$repository/$chart_name" >> $GITHUB_OUTPUT
+        echo "digest=$digest" >> $GITHUB_OUTPUT
+
+    - name: Generate chart attestation
+      uses: actions/attest-build-provenance@v4
+      with:
+        subject-name: ${{ steps.build-and-push.outputs.repository }}
+        subject-digest: ${{ steps.build-and-push.outputs.digest }}
+        push-to-registry: true
 
   update-cop:
     name: Update component operator
